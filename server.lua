@@ -1,0 +1,11 @@
+ESX.RegisterServerCallback('dv_garbage:getInventory', function(source, cb)
+    local xPlayer = ESX.GetPlayerFromId(source)
+    local inventory = xPlayer.getInventory()
+    cb(inventory)
+end)
+
+RegisterNetEvent('dv_garbage:removeItem')
+AddEventHandler('dv_garbage:removeItem', function(itemName, amount)
+    local xPlayer = ESX.GetPlayerFromId(source)
+    xPlayer.removeInventoryItem(itemName, amount)
+end)    
