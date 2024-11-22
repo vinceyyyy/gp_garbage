@@ -13,5 +13,6 @@ server_scripts {
 
 shared_scripts {
     '@es_extended/imports.lua',
-    'config.lua'
+    'config.lua',
+    '@ox_lib/init.lua',
 }
