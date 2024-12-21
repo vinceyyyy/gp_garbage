@@ -18,6 +18,8 @@ gp_garbage is a simple script that lets you access every dumpster on the GTA5 ma
 
 
 ## Pictures
+![gp_garbage1](https://github.com/user-attachments/assets/b58e3de9-a0c9-400c-ae4d-83197592ef0c)
+![gp_garbage2](https://github.com/user-attachments/assets/1772792b-efb1-4e56-a52f-d6df56a1377b)
 
 
 ## Installation
