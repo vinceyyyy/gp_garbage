@@ -1,33 +1,19 @@
-local isNearTrash = false
-local inv = {}
+exports.ox_target:addModel(Config.DumpsterModels, {
+    name = targetName,
+    label = "Throw something away",
+    event = "gp_garbage:openTrashInventory",
+    icon = 'fa-solid fa-trash-can',
+    distance = 2.0,
+    onSelect = function(data)
+        local binEntity = data.entity
+        local coords = GetEntityCoords(binEntity)
+        coords = vector3(math.floor(coords.x), math.floor(coords.y), math.floor(coords.z))
+        local stashName = "trash_" .. tostring(binEntity)
 
--- Citizen.CreateThread(function()
---     while true do
---         local playerPed = PlayerPedId()
---         local playerCoords = GetEntityCoords(playerPed)
---         local radius = 1.0
+        TriggerServerEvent('gp_garbage:openStash', stashName, coords)
+    end
+})
 
---         --Check if player is near dumpster
---         for _, currentModel in ipairs(Config.DumpsterModels) do
---             local dumpster = GetClosestObjectOfType(playerCoords.x, playerCoords.y, playerCoords.z, radius, currentModel, false, false, false)
---             if DoesEntityExist(dumpster) then
---                 isNearTrash = true
---                 break;
---             else
---                 isNearTrash = false
---             end
---         end
-         
---         if isNearTrash then
---             ESX.ShowHelpNotification('Press ~INPUT_CONTEXT~ to throw something away')
---             if IsControlJustReleased(0, 51) then
---                 openInventory()
---             end
---             Citizen.Wait(5)
---         else
---             ESX.UI.Menu.CloseAll()
---             Citizen.Wait(1000)
---         end
---     end
--- end)
-
+RegisterNetEvent('gp_garbage:openStash', function(stash)
+    exports.ox_inventory:openInventory('stash', { id=stash, owner=false })
+end)
