@@ -7,7 +7,7 @@ gp_garbage is a simple script that lets you access every dumpster on the GTA5 ma
 - **ox_inventory integration:** For a clean and player-friendly stash system.
 - **ox_target integration:** To interact with the dumpster.
 - **Customizable:** Config file to tweak dumpster volume and slots to your liking.
-- **Optimized:** Basically no CPU usage (<=0.01ms).
+- **Optimized:** Minimal CPU usage (<=0.01ms).
 
 ## Requirements
 - [ox_target](https://github.com/overextended/ox_target)

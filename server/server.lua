@@ -16,33 +16,38 @@ AddEventHandler('onResourceStart', function(resourceName)
     end)
 end)
 
-RegisterNetEvent('gp_garbage:openStash', function(stashName, coords)
+RegisterNetEvent('gp_garbage:openStashServer', function(stashName, coords)
     local src = source
-    local stash = {
-        id = stashName,
-        label = "Garbage",
-        slots = Config.DumpsterAttributes.slots,
-        weight = Config.DumpsterAttributes.maxWeight
-    }  
     
     MySQL.query('SELECT * FROM garbage_bins WHERE xCoord = ? AND yCoord = ? AND zCoord = ?', 
         {coords.x, coords.y, coords.z}, 
         function(result)
             if #result > 0 then
+                print("does already exist")
                 local existingStashName = result[1].stash
-                
-                TriggerClientEvent('gp_garbage:openStash', src, existingStashName)
+                print("existing stash name: ", existingStashName)
+                TriggerClientEvent('gp_garbage:openStashClient', src, existingStashName)
             else
-                exports.ox_inventory:RegisterStash(stash.id, stash.label, stash.slots, stash.weight, false)
+                print("making new stash")
+
+                oxRegisterStash(stashName)
 
                 MySQL.query('INSERT INTO garbage_bins (stash, xCoord, yCoord, zCoord) VALUES (?, ?, ?, ?)', {
-                    stash.id,
+                    stashName,
                     coords.x,
                     coords.y,
                     coords.z
                 })
                 
-                TriggerClientEvent('gp_garbage:openStash', src, stash.id)
+                TriggerClientEvent('gp_garbage:openStashClient', src, stashName)
             end  
         end)
+end)
+
+RegisterNetEvent('gp_garbage:lazyRegisterStash', function(stash)
+    local src = source
+
+    oxRegisterStash(stash)
+    print("lazy registered stash:", stash)
+    TriggerClientEvent('gp_garbage:openStashClient', src, stash)
 end)
