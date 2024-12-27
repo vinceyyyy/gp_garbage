@@ -23,13 +23,10 @@ RegisterNetEvent('gp_garbage:openStashServer', function(stashName, coords)
         {coords.x, coords.y, coords.z}, 
         function(result)
             if #result > 0 then
-                print("does already exist")
                 local existingStashName = result[1].stash
-                print("existing stash name: ", existingStashName)
+
                 TriggerClientEvent('gp_garbage:openStashClient', src, existingStashName)
             else
-                print("making new stash")
-
                 oxRegisterStash(stashName)
 
                 MySQL.query('INSERT INTO garbage_bins (stash, xCoord, yCoord, zCoord) VALUES (?, ?, ?, ?)', {
@@ -48,6 +45,5 @@ RegisterNetEvent('gp_garbage:lazyRegisterStash', function(stash)
     local src = source
 
     oxRegisterStash(stash)
-    print("lazy registered stash:", stash)
     TriggerClientEvent('gp_garbage:openStashClient', src, stash)
 end)

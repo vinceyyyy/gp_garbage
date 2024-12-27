@@ -9,13 +9,12 @@ exports.ox_target:addModel(Config.DumpsterModels, {
         local coords = GetEntityCoords(binEntity)
         coords = vector3(math.floor(coords.x), math.floor(coords.y), math.floor(coords.z))
         local stashName = "trash_" .. tostring(binEntity)
-        print("opening stash ", coords, stashName)
+        
         TriggerServerEvent('gp_garbage:openStashServer', stashName, coords)
     end
 })
 
 RegisterNetEvent('gp_garbage:openStashClient', function(stash)
-    print("opening stash " .. stash)
     if exports.ox_inventory:openInventory('stash', stash) == false then
         TriggerServerEvent('gp_garbage:lazyRegisterStash', stash)
     end
