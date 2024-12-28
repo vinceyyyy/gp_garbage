@@ -10,6 +10,6 @@ Config.DumpsterModels = {
 }
 
 Config.DumpsterAttributes = {
-    slots = 30,
+    slots = 60,
     maxWeight = 200000
 }
